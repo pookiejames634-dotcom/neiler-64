@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg-labels"
+   xmlns="http://www.w3.org/2000/svg">
+
+  <defs id="defs">
+    <style id="label-styles">
+      .main-label {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        font-weight: bold;
+        fill: #ffffff;
+      }
+      .sub-label {
+        font-family: 'Arial', sans-serif;
+        font-size: 6px;
+        fill: #cccccc;
+      }
+      .warning-label {
+        font-family: 'Arial Black', sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        fill: #ffff00;
+      }
+      .icon-outline {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 1;
+      }
+    </style>
+  </defs>
+
+  <!-- Sheet 1: Port Labels (for cutting/printing) -->
+  <g id="port-labels" transform="translate(10, 10)">
+    <text class="main-label" x="0" y="0">PORT LABELS - Cut on solid lines</text>
+
+    <!-- USB Ports -->
+    <g id="usb-labels" transform="translate(0, 10)">
+      <rect x="0" y="0" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="7" fill="#00ff00">USB 3.0 #1</text>
+
+      <rect x="0" y="12" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="19" fill="#00ff00">USB 3.0 #2</text>
+
+      <rect x="0" y="24" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="31" fill="#00ff00">USB 3.0 #3</text>
+
+      <rect x="0" y="36" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="43" fill="#00ff00">USB 3.0 #4</text>
+    </g>
+
+    <!-- Network Ports -->
+    <g id="network-labels" transform="translate(35, 10)">
+      <rect x="0" y="0" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="7" fill="#00aaff">ETHERNET</text>
+
+      <rect x="0" y="12" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="19" fill="#00aaff">WiFi 2.4/5G</text>
+
+      <rect x="0" y="24" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="31" fill="#00aaff">4G/LTE</text>
+    </g>
+
+    <!-- Display/Audio -->
+    <g id="av-labels" transform="translate(70, 10)">
+      <rect x="0" y="0" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="7" fill="#ff00ff">HDMI OUT</text>
+
+      <rect x="0" y="12" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="19" fill="#ff00ff">AUDIO 3.5</text>
+
+      <rect x="0" y="24" width="30" height="10" fill="#000000" stroke="#ffffff" stroke-width="0.2"/>
+      <text class="sub-label" x="2" y="31" fill="#ff0000">MIC IN</text>
+    </g>
+
+    <!-- Power -->
+    <g id="power-labels" transform="translate(105, 10)">
+      <rect x="0" y="0" width="30" height="10" fill="#000000" stroke="#ff0000" stroke-width="0.3"/>
+      <text class="sub-label" x="2" y="7" fill="#ff0000">⚡ POWER</text>
+
+      <rect x="0" y="12" width="30" height="10" fill="#000000" stroke="#ff0000" stroke-width="0.3"/>
+      <text class="sub-label" x="2" y="19" fill="#ff0000">USB-C PD</text>
+    </g>
+  </g>
+
+  <!-- Sheet 2: Status Indicators -->
+  <g id="status-indicators" transform="translate(10, 70)">
+    <text class="main-label" x="0" y="0">STATUS INDICATORS</text>
+
+    <g id="led-labels" transform="translate(0, 10)">
+      <!-- Power LED -->
+      <circle cx="5" cy="5" r="4" fill="#ff0000"/>
+      <text class="sub-label" x="12" y="8">POWER</text>
+
+      <!-- Activity LED -->
+      <circle cx="5" cy="15" r="4" fill="#00ff00"/>
+      <text class="sub-label" x="12" y="18">ACTIVITY</text>
+
+      <!-- Network LED -->
+      <circle cx="5" cy="25" r="4" fill="#0000ff"/>
+      <text class="sub-label" x="12" y="28">NETWORK</text>
+
+      <!-- Battery LED -->
+      <circle cx="5" cy="35" r="4" fill="#ffaa00"/>
+      <text class="sub-label" x="12" y="38">BATTERY</text>
+
+      <!-- Alert LED -->
+      <circle cx="5" cy="45" r="4" fill="#ff00ff"/>
+      <text class="sub-label" x="12" y="48">ALERT</text>
+    </g>
+  </g>
+
+  <!-- Sheet 3: Warning Labels -->
+  <g id="warnings" transform="translate(10, 140)">
+    <text class="main-label" x="0" y="0">WARNING / SAFETY LABELS</text>
+
+    <!-- High voltage warning -->
+    <g id="voltage-warning" transform="translate(0, 10)">
+      <rect x="0" y="0" width="60" height="25" fill="#ffff00" stroke="#000000" stroke-width="0.5"/>
+      <path d="M 15,5 L 20,12 L 17,12 L 22,20 L 13,12 L 16,12 Z" fill="#000000"/>
+      <text x="28" y="10" style="font-size: 8px; font-weight: bold; fill: #000000">⚠ CAUTION</text>
+      <text x="28" y="18" style="font-size: 6px; fill: #000000">LITHIUM BATTERY</text>
+    </g>
+
+    <!-- ESD Warning -->
+    <g id="esd-warning" transform="translate(65, 10)">
+      <rect x="0" y="0" width="60" height="25" fill="#ffffff" stroke="#000000" stroke-width="0.5"/>
+      <text x="5" y="15" style="font-size: 16px; font-weight: bold; fill: #ff0000">⚡</text>
+      <text x="22" y="10" style="font-size: 6px; fill: #000000">SENSITIVE</text>
+      <text x="22" y="17" style="font-size: 6px; fill: #000000">ELECTRONIC</text>
+      <text x="22" y="23" style="font-size: 6px; fill: #000000">DEVICES</text>
+    </g>
+
+    <!-- Do not open while powered -->
+    <g id="power-warning" transform="translate(0, 40)">
+      <rect x="0" y="0" width="80" height="15" fill="#ff0000" stroke="#000000" stroke-width="0.5"/>
+      <text x="5" y="10" style="font-size: 8px; font-weight: bold; fill: #ffffff">⚠ DO NOT OPEN WHILE POWERED</text>
+    </g>
+  </g>
+
+  <!-- Sheet 4: Icon Set for Laser Engraving -->
+  <g id="icons" transform="translate(10, 200)">
+    <text class="main-label" x="0" y="0">ICONS (For laser engraving)</text>
+
+    <!-- WiFi Icon -->
+    <g id="wifi-icon" transform="translate(0, 10)">
+      <path class="icon-outline" d="M 5,15 Q 5,10 10,10 Q 15,10 15,15"/>
+      <path class="icon-outline" d="M 2,12 Q 2,5 10,5 Q 18,5 18,12"/>
+      <circle cx="10" cy="17" r="1" fill="#ffffff"/>
+      <text class="sub-label" x="0" y="25">WiFi</text>
+    </g>
+
+    <!-- Bluetooth Icon -->
+    <g id="bt-icon" transform="translate(25, 10)">
+      <path class="icon-outline" d="M 8,5 L 12,9 L 8,13 L 12,17 L 8,21 M 8,5 L 8,21"/>
+      <text class="sub-label" x="2" y="29">Bluetooth</text>
+    </g>
+
+    <!-- Battery Icon -->
+    <g id="battery-icon" transform="translate(55, 10)">
+      <rect class="icon-outline" x="3" y="8" width="14" height="8" rx="1"/>
+      <rect x="17" y="10" width="2" height="4" fill="#ffffff"/>
+      <rect x="5" y="10" width="3" height="4" fill="#00ff00"/>
+      <rect x="9" y="10" width="3" height="4" fill="#00ff00"/>
+      <text class="sub-label" x="2" y="25">Battery</text>
+    </g>
+
+    <!-- GPS Icon -->
+    <g id="gps-icon" transform="translate(85, 10)">
+      <circle class="icon-outline" cx="10" cy="13" r="8"/>
+      <circle cx="10" cy="13" r="3" fill="#ffffff"/>
+      <path class="icon-outline" d="M 10,5 L 10,8 M 10,18 L 10,21 M 2,13 L 5,13 M 15,13 L 18,13"/>
+      <text class="sub-label" x="5" y="29">GPS</text>
+    </g>
+
+    <!-- SDR Icon -->
+    <g id="sdr-icon" transform="translate(115, 10)">
+      <path class="icon-outline" d="M 5,8 Q 10,5 15,8 M 3,12 Q 10,7 17,12 M 1,16 Q 10,9 19,16"/>
+      <text class="sub-label" x="5" y="29">SDR</text>
+    </g>
+  </g>
+
+  <!-- Sheet 5: Large Logo Decal -->
+  <g id="large-logo" transform="translate(60, 240)">
+    <text class="main-label" x="0" y="0">LARGE DECAL (Top Panel)</text>
+
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="100" height="40" fill="#000000" stroke="#00ff00" stroke-width="0.5" opacity="0.9"/>
+      <text x="10" y="20" style="font-family: 'Courier New'; font-size: 16px; font-weight: bold; fill: #00ff00">NEILERDECK</text>
+      <text x="10" y="32" style="font-family: 'Arial'; font-size: 8px; fill: #00ff00">PORTABLE SECURITY WORKSTATION</text>
+      <path d="M 10,35 L 90,35" stroke="#00ff00" stroke-width="1"/>
+    </g>
+  </g>
+
+  <!-- Cutting guides -->
+  <g id="cutting-guides" stroke="#ff0000" stroke-width="0.1" fill="none" opacity="0.3">
+    <line x1="5" y1="5" x2="205" y2="5"/>
+    <line x1="5" y1="292" x2="205" y2="292"/>
+    <line x1="5" y1="5" x2="5" y2="292"/>
+    <line x1="205" y1="5" x2="205" y2="292"/>
+    <text x="10" y="285" style="font-size: 6px; fill: #ff0000">RED LINES = CUTTING GUIDES (Do not print)</text>
+  </g>
+
+</svg>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="600mm"
+   height="400mm"
+   viewBox="0 0 600 400"
+   version="1.1"
+   id="svg-laser"
+   xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <style>
+      .cut-line { stroke: #ff0000; stroke-width: 0.1; fill: none; }
+      .engrave-line { stroke: #0000ff; stroke-width: 0.05; fill: none; }
+      .raster-area { fill: #000000; }
+      .annotation { font-size: 8px; fill: #888888; }
+    </style>
+  </defs>
+
+  <!-- Instructions -->
+  <g id="instructions" transform="translate(10, 10)">
+    <text class="annotation" x="0" y="0">NEILERDECK LASER CUTTING TEMPLATE</text>
+    <text class="annotation" x="0" y="10">Material: 3mm Acrylic or Plywood</text>
+    <text class="annotation" x="0" y="20">RED lines (0.1mm) = CUT</text>
+    <text class="annotation" x="0" y="30">BLUE lines (0.05mm) = ENGRAVE</text>
+    <text class="annotation" x="0" y="40">BLACK areas = RASTER</text>
+    <rect x="0" y="45" width="300" height="1" fill="#888888"/>
+  </g>
+
+  <!-- Top Panel Template -->
+  <g id="top-panel" transform="translate(50, 80)">
+    <text class="annotation" x="0" y="-5">TOP PANEL (300mm x 200mm)</text>
+
+    <!-- Outer cut line -->
+    <rect class="cut-line" x="0" y="0" width="300" height="200" rx="5"/>
+
+    <!-- Display cutout -->
+    <rect class="cut-line" x="50" y="15" width="195" height="110" rx="2"/>
+    <text class="annotation" x="52" y="25">Display</text>
+    <text class="annotation" x="52" y="33">195x110mm</text>
+
+    <!-- Keyboard cutout -->
+    <rect class="cut-line" x="30" y="130" width="240" height="60" rx="2"/>
+    <text class="annotation" x="32" y="140">Keyboard Area</text>
+    <text class="annotation" x="32" y="148">240x60mm</text>
+
+    <!-- Trackball cutout -->
+    <circle class="cut-line" cx="280" cy="160" r="12"/>
+    <text class="annotation" x="268" y="185">Trackball</text>
+
+    <!-- Ventilation slots -->
+    <g id="vent-slots" transform="translate(250, 20)">
+      <line class="cut-line" x1="0" y1="0" x2="0" y2="15"/>
+      <line class="cut-line" x1="5" y1="0" x2="5" y2="15"/>
+      <line class="cut-line" x1="10" y1="0" x2="10" y2="15"/>
+      <line class="cut-line" x1="15" y1="0" x2="15" y2="15"/>
+      <line class="cut-line" x1="20" y1="0" x2="20" y2="15"/>
+      <line class="cut-line" x1="25" y1="0" x2="25" y2="15"/>
+    </g>
+
+    <!-- Mounting holes -->
+    <circle class="cut-line" cx="10" cy="10" r="2"/>
+    <circle class="cut-line" cx="290" cy="10" r="2"/>
+    <circle class="cut-line" cx="10" cy="190" r="2"/>
+    <circle class="cut-line" cx="290" cy="190" r="2"/>
+
+    <!-- Logo engraving -->
+    <g id="logo-engrave" transform="translate(15, 180)">
+      <text class="engrave-line" style="font-family: 'Courier New'; font-size: 12px; font-weight: bold; stroke-width: 0.1">NEILERDECK</text>
+    </g>
+  </g>
+
+  <!-- Bottom Panel Template -->
+  <g id="bottom-panel" transform="translate(370, 80)">
+    <text class="annotation" x="0" y="-5">BOTTOM PANEL (300mm x 200mm)</text>
+
+    <!-- Outer cut line -->
+    <rect class="cut-line" x="0" y="0" width="300" height="200" rx="5"/>
+
+    <!-- Battery compartment outline (engrave only) -->
+    <rect class="engrave-line" x="75" y="60" width="150" height="80" rx="3"/>
+    <text class="annotation" x="120" y="105">Battery</text>
+    <text class="annotation" x="110" y="113">Compartment</text>
+
+    <!-- Access panel cutout -->
+    <rect class="cut-line" x="100" y="80" width="100" height="60" rx="2"/>
+    <text class="annotation" x="120" y="175">Access Panel</text>
+
+    <!-- Rubber feet holes -->
+    <circle class="cut-line" cx="15" cy="15" r="3"/>
+    <circle class="cut-line" cx="285" cy="15" r="3"/>
+    <circle class="cut-line" cx="15" cy="185" r="3"/>
+    <circle class="cut-line" cx="285" cy="185" r="3"/>
+
+    <!-- Mounting holes -->
+    <circle class="cut-line" cx="10" cy="10" r="2"/>
+    <circle class="cut-line" cx="290" cy="10" r="2"/>
+    <circle class="cut-line" cx="10" cy="190" r="2"/>
+    <circle class="cut-line" cx="290" cy="190" r="2"/>
+
+    <!-- Serial number engraving area -->
+    <g id="serial-engrave" transform="translate(15, 190)">
+      <text class="engrave-line" style="font-size: 6px">S/N: ___________</text>
+    </g>
+
+    <!-- Airflow direction arrows (engrave) -->
+    <g class="engrave-line">
+      <path d="M 250,50 L 260,50 L 255,45 M 260,50 L 255,55 Z"/>
+      <text class="annotation" x="265" y="53">AIRFLOW</text>
+    </g>
+  </g>
+
+  <!-- Left Side Panel -->
+  <g id="left-panel" transform="translate(50, 300)">
+    <text class="annotation" x="0" y="-5">LEFT SIDE (200mm x 80mm)</text>
+
+    <rect class="cut-line" x="0" y="0" width="200" height="80" rx="3"/>
+
+    <!-- USB port cutouts -->
+    <rect class="cut-line" x="50" y="15" width="15" height="8" rx="1"/>
+    <text class="annotation" x="68" y="21">USB</text>
+
+    <rect class="cut-line" x="50" y="30" width="15" height="8" rx="1"/>
+    <text class="annotation" x="68" y="36">USB</text>
+
+    <rect class="cut-line" x="50" y="45" width="15" height="8" rx="1"/>
+    <text class="annotation" x="68" y="51">USB</text>
+
+    <!-- Mounting holes -->
+    <circle class="cut-line" cx="10" cy="10" r="2"/>
+    <circle class="cut-line" cx="190" cy="10" r="2"/>
+    <circle class="cut-line" cx="10" cy="70" r="2"/>
+    <circle class="cut-line" cx="190" cy="70" r="2"/>
+  </g>
+
+  <!-- Right Side Panel -->
+  <g id="right-panel" transform="translate(270, 300)">
+    <text class="annotation" x="0" y="-5">RIGHT SIDE (200mm x 80mm)</text>
+
+    <rect class="cut-line" x="0" y="0" width="200" height="80" rx="3"/>
+
+    <!-- Ethernet port -->
+    <rect class="cut-line" x="50" y="20" width="16" height="14" rx="1"/>
+    <text class="annotation" x="68" y="29">ETH</text>
+
+    <!-- HDMI port -->
+    <rect class="cut-line" x="80" y="20" width="15" height="6" rx="1"/>
+    <text class="annotation" x="97" y="25">HDMI</text>
+
+    <!-- Power switch hole -->
+    <circle class="cut-line" cx="140" cy="40" r="8"/>
+    <text class="annotation" x="150" y="43">POWER</text>
+
+    <!-- Antenna holes -->
+    <circle class="cut-line" cx="170" cy="25" r="3"/>
+    <circle class="cut-line" cx="170" cy="40" r="3"/>
+    <text class="annotation" x="175" y="33">ANT</text>
+
+    <!-- Mounting holes -->
+    <circle class="cut-line" cx="10" cy="10" r="2"/>
+    <circle class="cut-line" cx="190" cy="10" r="2"/>
+    <circle class="cut-line" cx="10" cy="70" r="2"/>
+    <circle class="cut-line" cx="190" cy="70" r="2"/>
+  </g>
+
+  <!-- Internal Mounting Plate -->
+  <g id="mount-plate" transform="translate(500, 300)">
+    <text class="annotation" x="0" y="-5">MOUNTING PLATE (85mm x 56mm)</text>
+
+    <rect class="cut-line" x="0" y="0" width="85" height="56" rx="2"/>
+
+    <!-- Pi mounting holes (standard RPi spacing) -->
+    <circle class="cut-line" cx="3.5" cy="3.5" r="1.5"/>
+    <circle class="cut-line" cx="61.5" cy="3.5" r="1.5"/>
+    <circle class="cut-line" cx="3.5" cy="52.5" r="1.5"/>
+    <circle class="cut-line" cx="61.5" cy="52.5" r="1.5"/>
+
+    <text class="annotation" x="15" y="30">Raspberry Pi</text>
+    <text class="annotation" x="20" y="38">Mount</text>
+  </g>
+
+  <!-- Fan Grilles (40mm) -->
+  <g id="fan-grilles" transform="translate(500, 200)">
+    <text class="annotation" x="0" y="-5">FAN GRILLE 40mm (x2)</text>
+
+    <!-- First grille -->
+    <g transform="translate(0, 0)">
+      <circle class="cut-line" cx="20" cy="20" r="20"/>
+      <circle class="cut-line" cx="20" cy="20" r="18"/>
+
+      <!-- Mounting holes -->
+      <circle class="cut-line" cx="4" cy="4" r="2"/>
+      <circle class="cut-line" cx="36" cy="4" r="2"/>
+      <circle class="cut-line" cx="4" cy="36" r="2"/>
+      <circle class="cut-line" cx="36" cy="36" r="2"/>
+
+      <!-- Honeycomb pattern -->
+      <circle class="cut-line" cx="20" cy="20" r="2"/>
+      <circle class="cut-line" cx="15" cy="20" r="2"/>
+      <circle class="cut-line" cx="25" cy="20" r="2"/>
+      <circle class="cut-line" cx="20" cy="15" r="2"/>
+      <circle class="cut-line" cx="20" cy="25" r="2"/>
+    </g>
+
+    <!-- Second grille -->
+    <g transform="translate(50, 0)">
+      <circle class="cut-line" cx="20" cy="20" r="20"/>
+      <circle class="cut-line" cx="20" cy="20" r="18"/>
+
+      <circle class="cut-line" cx="4" cy="4" r="2"/>
+      <circle class="cut-line" cx="36" cy="4" r="2"/>
+      <circle class="cut-line" cx="4" cy="36" r="2"/>
+      <circle class="cut-line" cx="36" cy="36" r="2"/>
+
+      <circle class="cut-line" cx="20" cy="20" r="2"/>
+      <circle class="cut-line" cx="15" cy="20" r="2"/>
+      <circle class="cut-line" cx="25" cy="20" r="2"/>
+      <circle class="cut-line" cx="20" cy="15" r="2"/>
+      <circle class="cut-line" cx="20" cy="25" r="2"/>
+    </g>
+  </g>
+
+  <!-- Material usage guide -->
+  <g id="material-guide" transform="translate(10, 385)">
+    <text class="annotation" x="0" y="0">Estimated material: 600mm x 400mm acrylic sheet</text>
+    <text class="annotation" x="0" y="10">Total cutting time: ~45 minutes @ 10mm/s</text>
+  </g>
+
+</svg>
