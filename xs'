@@ -1,0 +1,459 @@
+[4mGIT-COMMIT[24m(1)                                                                     Git Manual                                                                    [4mGIT-COMMIT[24m(1)
+
+[1mNAME[0m
+       git-commit - Record changes to the repository
+
+[1mSYNOPSIS[0m
+       [1mgit commit [22m[[1m-a [22m| [1m--interactive [22m| [1m--patch[22m] [[1m-s[22m] [[1m-v[22m] [[1m-u[22m[[4m<mode>[24m]] [[1m--amend[22m]
+                  [[1m--dry-run[22m] [([1m-c [22m| [1m-C [22m| [1m--squash[22m) [4m<commit>[24m | [1m--fixup [22m[([1mamend[22m|[1mreword[22m)[1m:[22m][4m<commit>[24m]
+                  [[1m-F [4m[22m<file>[24m | [1m-m [4m[22m<msg>[24m] [[1m--reset-author[22m] [[1m--allow-empty[22m]
+                  [[1m--allow-empty-message[22m] [[1m--no-verify[22m] [[1m-e[22m] [[1m--author=[4m[22m<author>[24m]
+                  [[1m--date=[4m[22m<date>[24m] [[1m--cleanup=[4m[22m<mode>[24m] [[1m--[22m[[1mno-[22m][1mstatus[22m]
+                  [[1m-i [22m| [1m-o[22m] [[1m--pathspec-from-file=[4m[22m<file>[24m [[1m--pathspec-file-nul[22m]]
+                  [([1m--trailer [4m[22m<token>[24m[([1m=[22m|[1m:[22m)[4m<value>[24m])...] [[1m-S[22m[[4m<keyid>[24m]]
+                  [[1m--[22m] [[4m<pathspec>[24m...]
+
+[1mDESCRIPTION[0m
+       Create a new commit containing the current contents of the index and the given log message describing the changes. The new commit is a direct child of HEAD, usually
+       the tip of the current branch, and the branch is updated to point to it (unless no branch is associated with the working tree, in which case [1mHEAD [22mis "detached" as
+       described in [1mgit-checkout[22m(1)).
+
+       The content to be committed can be specified in several ways:
+
+        1. by using [1mgit-add[22m(1) to incrementally "add" changes to the index before using the [1mcommit [22mcommand (Note: even modified files must be "added");
+
+        2. by using [1mgit-rm[22m(1) to remove files from the working tree and the index, again before using the [1mcommit [22mcommand;
+
+        3. by listing files as arguments to the [1mcommit [22mcommand (without [1m--interactive [22mor [1m--patch [22mswitch), in which case the commit will ignore changes staged in the index,
+           and instead record the current content of the listed files (which must already be known to Git);
+
+        4. by using the [1m-a [22mswitch with the [1mcommit [22mcommand to automatically "add" changes from all known files (i.e. all files that are already listed in the index) and to
+           automatically "rm" files in the index that have been removed from the working tree, and then perform the actual commit;
+
+        5. by using the [1m--interactive [22mor [1m--patch [22mswitches with the [1mcommit [22mcommand to decide one by one which files or hunks should be part of the commit in addition to
+           contents in the index, before finalizing the operation. See the “Interactive Mode” section of [1mgit-add[22m(1) to learn how to operate these modes.
+
+       The [1m--dry-run [22moption can be used to obtain a summary of what is included by any of the above for the next commit by giving the same set of parameters (options and
+       paths).
+
+       If you make a commit and then find a mistake immediately after that, you can recover from it with [1mgit reset[22m.
+
+[1mOPTIONS[0m
+       [1m-a[22m, [1m--all[0m
+           Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected.
+
+       [1m-p[22m, [1m--patch[0m
+           Use the interactive patch selection interface to choose which changes to commit. See [1mgit-add[22m(1) for details.
+
+       [1m-U[4m[22m<n>[24m, [1m--unified=[4m[22m<n>[0m
+           Generate diffs with [4m<n>[24m lines of context. Defaults to [1mdiff.context [22mor 3 if the config option is unset.
+
+       [1m--inter-hunk-context=[4m[22m<n>[0m
+           Show the context between diff hunks, up to the specified [4m<number>[24m of lines, thereby fusing hunks that are close to each other. Defaults to [1mdiff.interHunkContext[0m
+           or 0 if the config option is unset.
+
+       [1m-C [4m[22m<commit>[24m, [1m--reuse-message=[4m[22m<commit>[0m
+           Take an existing [4m<commit>[24m object, and reuse the log message and the authorship information (including the timestamp) when creating the commit.
+
+       [1m-c [4m[22m<commit>[24m, [1m--reedit-message=[4m[22m<commit>[0m
+           Like [1m-C[22m, but with [1m-c [22mthe editor is invoked, so that the user can further edit the commit message.
+
+       [1m--fixup=[22m[([1mamend[22m|[1mreword[22m)[1m:[22m][4m<commit>[0m
+           Create a new commit which "fixes up" [4m<commit>[24m when applied with [1mgit rebase --autosquash[22m. Plain [1m--fixup=[4m[22m<commit>[24m creates a "fixup!" commit which changes the
+           content of [4m<commit>[24m but leaves its log message untouched.  [1m--fixup=amend:[4m[22m<commit>[24m is similar but creates an "amend!" commit which also replaces the log message of
+           [4m<commit>[24m with the log message of the "amend!" commit.  [1m--fixup=reword:[4m[22m<commit>[24m creates an "amend!" commit which replaces the log message of [4m<commit>[24m with its own
+           log message but makes no changes to the content of [4m<commit>[24m.
+
+           The commit created by plain [1m--fixup=[4m[22m<commit>[24m has a title composed of "fixup!" followed by the title of [4m<commit>[24m, and is recognized specially by [1mgit rebase[0m
+           [1m--autosquash[22m. The [1m-m [22moption may be used to supplement the log message of the created commit, but the additional commentary will be thrown away once the "fixup!"
+           commit is squashed into [4m<commit>[24m by [1mgit rebase --autosquash[22m.
+
+           The commit created by [1m--fixup=amend:[4m[22m<commit>[24m is similar but its title is instead prefixed with "amend!". The log message of [4m<commit>[24m is copied into the log
+           message of the "amend!" commit and opened in an editor so it can be refined. When [1mgit rebase --autosquash [22msquashes the "amend!" commit into [4m<commit>[24m, the log
+           message of [4m<commit>[24m is replaced by the refined log message from the "amend!" commit. It is an error for the "amend!" commit’s log message to be empty unless
+           [1m--allow-empty-message [22mis specified.
+
+           [1m--fixup=reword:[4m[22m<commit>[24m is shorthand for [1m--fixup=amend:[4m[22m<commit>[24m [1m--only[22m. It creates an "amend!" commit with only a log message (ignoring any changes staged in the
+           index). When squashed by [1mgit rebase --autosquash[22m, it replaces the log message of [4m<commit>[24m without making any other changes.
+
+           Neither "fixup!" nor "amend!" commits change authorship of [4m<commit>[24m when applied by [1mgit rebase --autosquash[22m. See [1mgit-rebase[22m(1) for details.
+
+       [1m--squash=[4m[22m<commit>[0m
+           Construct a commit message for use with [1mgit rebase --autosquash[22m. The commit message title is taken from the specified commit with a prefix of "squash! ". Can be
+           used with additional commit message options ([1m-m[22m/[1m-c[22m/[1m-C[22m/[1m-F[22m). See [1mgit-rebase[22m(1) for details.
+
+       [1m--reset-author[0m
+           When used with [1m-C[22m/[1m-c[22m/[1m--amend [22moptions, or when committing after a conflicting cherry-pick, declare that the authorship of the resulting commit now belongs to the
+           committer. This also renews the author timestamp.
+
+       [1m--short[0m
+           When doing a dry-run, give the output in the short-format. See [1mgit-status[22m(1) for details. Implies [1m--dry-run[22m.
+
+       [1m--branch[0m
+           Show the branch and tracking info even in short-format.
+
+       [1m--porcelain[0m
+           When doing a dry-run, give the output in a porcelain-ready format. See [1mgit-status[22m(1) for details. Implies [1m--dry-run[22m.
+
+       [1m--long[0m
+           When doing a dry-run, give the output in the long-format. Implies [1m--dry-run[22m.
+
+       [1m-z[22m, [1m--null[0m
+           When showing [1mshort [22mor [1mporcelain [22mstatus output, print the filename verbatim and terminate the entries with [4mNUL[24m, instead of [4mLF[24m. If no format is given, implies the
+           [1m--porcelain [22moutput format. Without the [1m-z [22moption, filenames with "unusual" characters are quoted as explained for the configuration variable [1mcore.quotePath [22m(see
+           [1mgit-config[22m(1)).
+
+       [1m-F [4m[22m<file>[24m, [1m--file=[4m[22m<file>[0m
+           Take the commit message from [4m<file>[24m. Use [4m-[24m to read the message from the standard input.
+
+       [1m--author=[4m[22m<author>[0m
+           Override the commit author. Specify an explicit author using the standard [1mA U Thor [22m<author@example.com> format. Otherwise [4m<author>[24m is assumed to be a pattern and
+           is used to search for an existing commit by that author (i.e.  [1mgit rev-list --all -i --author=[4m[22m<author>[24m); the commit author is then copied from the first such
+           commit found.
+
+       [1m--date=[4m[22m<date>[0m
+           Override the author date used in the commit.
+
+       [1m-m [4m[22m<msg>[24m, [1m--message=[4m[22m<msg>[0m
+           Use [4m<msg>[24m as the commit message. If multiple [1m-m [22moptions are given, their values are concatenated as separate paragraphs.
+
+           The [1m-m [22moption is mutually exclusive with [1m-c[22m, [1m-C[22m, and [1m-F[22m.
+
+       [1m-t [4m[22m<file>[24m, [1m--template=[4m[22m<file>[0m
+           When editing the commit message, start the editor with the contents in [4m<file>[24m. The [1mcommit.template [22mconfiguration variable is often used to give this option
+           implicitly to the command. This mechanism can be used by projects that want to guide participants with some hints on what to write in the message in what order.
+           If the user exits the editor without editing the message, the commit is aborted. This has no effect when a message is given by other means, e.g. with the [1m-m [22mor [1m-F[0m
+           options.
+
+       [1m-s[22m, [1m--signoff[22m, [1m--no-signoff[0m
+           Add a [1mSigned-off-by [22mtrailer by the committer at the end of the commit log message. The meaning of a signoff depends on the project to which you’re committing. For
+           example, it may certify that the committer has the rights to submit the work under the project’s license or agrees to some contributor representation, such as a
+           Developer Certificate of Origin. (See [34m[1mhttps://developercertificate.org [0m[1m[22mfor the one used by the Linux kernel and Git projects.) Consult the documentation or
+           leadership of the project to which you’re contributing to understand how the signoffs are used in that project.
+
+           The [1m--no-signoff [22moption can be used to countermand an earlier [1m--signoff [22moption on the command line.
+
+       [1m--trailer [4m[22m<token>[24m[([1m=[22m|[1m:[22m)[4m<value>[24m]
+           Specify a ([4m<token>[24m, [4m<value>[24m) pair that should be applied as a trailer. (e.g.  [1mgit commit --trailer [22m"Signed-off-by:C [1mO Mitter \ [22m<committer@example.com>" [1m--trailer[0m
+           "Helped-by:C [1mO Mitter \ [22m<committer@example.com>" will add the [1mSigned-off-by [22mtrailer and the [1mHelped-by [22mtrailer to the commit message.) The [1mtrailer.*  [22mconfiguration
+           variables ([1mgit-interpret-trailers[22m(1)) can be used to define if a duplicated trailer is omitted, where in the run of trailers each trailer would appear, and other
+           details.
+
+       [1m-n[22m, [1m--verify[22m, [1m--no-verify[0m
+           Bypass the [1mpre-commit [22mand [1mcommit-msg [22mhooks. See also [1mgithooks[22m(5).
+
+       [1m--allow-empty[0m
+           Usually recording a commit that has the exact same tree as its sole parent commit is a mistake, and the command prevents you from making such a commit. This
+           option bypasses the safety, and is primarily for use by foreign SCM interface scripts.
+
+       [1m--allow-empty-message[0m
+           Create a commit with an empty commit message without using plumbing commands like [1mgit-commit-tree[22m(1). Like [1m--allow-empty[22m, this command is primarily for use by
+           foreign SCM interface scripts.
+
+       [1m--cleanup=[4m[22m<mode>[0m
+           Determine how the supplied commit message should be cleaned up before committing. The [4m<mode>[24m can be [1mstrip[22m, [1mwhitespace[22m, [1mverbatim[22m, [1mscissors [22mor [1mdefault[22m.
+
+           [1mstrip[0m
+               Strip leading and trailing empty lines, trailing whitespace, commentary and collapse consecutive empty lines.
+
+           [1mwhitespace[0m
+               Same as [1mstrip [22mexcept #commentary is not removed.
+
+           [1mverbatim[0m
+               Do not change the message at all.
+
+           [1mscissors[0m
+               Same as [1mwhitespace [22mexcept that everything from (and including) the line found below is truncated, if the message is to be edited. "#" can be customized with
+               [1mcore.commentChar[22m.
+
+                   # ------------------------ >8 ------------------------
+
+           [1mdefault[0m
+               Same as [1mstrip [22mif the message is to be edited. Otherwise [1mwhitespace[22m.
+
+           The default can be changed by the [1mcommit.cleanup [22mconfiguration variable (see [1mgit-config[22m(1)).
+
+       [1m-e[22m, [1m--edit[0m
+           Let the user further edit the message taken from [4m<file>[24m with [1m-F [4m[22m<file>[24m, command line with [1m-m [4m[22m<message>[24m, and from [4m<commit>[24m with [1m-C [4m[22m<commit>[24m.
+
+       [1m--no-edit[0m
+           Use the selected commit message without launching an editor. For example, [1mgit commit --amend --no-edit [22mamends a commit without changing its commit message.
+
+       [1m--amend[0m
+           Replace the tip of the current branch by creating a new commit. The recorded tree is prepared as usual (including the effect of the [1m-i [22mand [1m-o [22moptions and explicit
+           pathspec), and the message from the original commit is used as the starting point, instead of an empty message, when no other message is specified from the
+           command line via options such as [1m-m[22m, [1m-F[22m, [1m-c[22m, etc. The new commit has the same parents and author as the current one (the [1m--reset-author [22moption can countermand
+           this).
+
+           It is a rough equivalent for:
+
+                       $ git reset --soft HEAD^
+                       $ ... do something else to come up with the right tree ...
+                       $ git commit -c ORIG_HEAD
+
+           but can be used to amend a merge commit.
+
+           You should understand the implications of rewriting history if you amend a commit that has already been published. (See the "RECOVERING FROM UPSTREAM REBASE"
+           section in [1mgit-rebase[22m(1).)
+
+       [1m--no-post-rewrite[0m
+           Bypass the [1mpost-rewrite [22mhook.
+
+       [1m-i[22m, [1m--include[0m
+           Before making a commit out of staged contents so far, stage the contents of paths given on the command line as well. This is usually not what you want unless you
+           are concluding a conflicted merge.
+
+       [1m-o[22m, [1m--only[0m
+           Make a commit by taking the updated working tree contents of the paths specified on the command line, disregarding any contents that have been staged for other
+           paths. This is the default mode of operation of [1mgit commit [22mif any paths are given on the command line, in which case this option can be omitted. If this option is
+           specified together with [1m--amend[22m, then no paths need to be specified, which can be used to amend the last commit without committing changes that have already been
+           staged. If used together with [1m--allow-empty [22mpaths are also not required, and an empty commit will be created.
+
+       [1m--pathspec-from-file=[4m[22m<file>[0m
+           Pass pathspec in [4m<file>[24m instead of commandline args. If [4m<file>[24m is exactly [1m- [22mthen standard input is used. Pathspec elements are separated by [4mLF[24m or [4mCR[24m/[4mLF[24m. Pathspec
+           elements can be quoted as explained for the configuration variable [1mcore.quotePath [22m(see [1mgit-config[22m(1)). See also [1m--pathspec-file-nul [22mand global
+           [1m--literal-pathspecs[22m.
+
+       [1m--pathspec-file-nul[0m
+           Only meaningful with [1m--pathspec-from-file[22m. Pathspec elements are separated with [4mNUL[24m character and all other characters are taken literally (including newlines and
+           quotes).
+
+       [1m-u[22m[[4m<mode>[24m], [1m--untracked-files[22m[[1m=[4m[22m<mode>[24m]
+           Show untracked files.
+
+           The [4m<mode>[24m parameter is optional (defaults to [1mall[22m), and is used to specify the handling of untracked files; when [1m-u [22mis not used, the default is [1mnormal[22m, i.e. show
+           untracked files and directories.
+
+           The possible options are:
+
+           [1mno[0m
+               Show no untracked files
+
+           [1mnormal[0m
+               Shows untracked files and directories
+
+           [1mall[0m
+               Also shows individual files in untracked directories.
+
+           All usual spellings for Boolean value [1mtrue [22mare taken as [1mnormal [22mand [1mfalse [22mas [1mno[22m. The default can be changed using the [1mstatus.showUntrackedFiles [22mconfiguration
+           variable documented in [1mgit-config[22m(1).
+
+       [1m-v[22m, [1m--verbose[0m
+           Show unified diff between the [1mHEAD [22mcommit and what would be committed at the bottom of the commit message template to help the user describe the commit by
+           reminding what changes the commit has. Note that this diff output doesn’t have its lines prefixed with #. This diff will not be a part of the commit message. See
+           the [1mcommit.verbose [22mconfiguration variable in [1mgit-config[22m(1).
+
+           If specified twice, show in addition the unified diff between what would be committed and the worktree files, i.e. the unstaged changes to tracked files.
+
+       [1m-q[22m, [1m--quiet[0m
+           Suppress commit summary message.
+
+       [1m--dry-run[0m
+           Do not create a commit, but show a list of paths that are to be committed, paths with local changes that will be left uncommitted and paths that are untracked.
+
+       [1m--status[0m
+           Include the output of [1mgit-status[22m(1) in the commit message template when using an editor to prepare the commit message. Defaults to on, but can be used to override
+           configuration variable [1mcommit.status[22m.
+
+       [1m--no-status[0m
+           Do not include the output of [1mgit-status[22m(1) in the commit message template when using an editor to prepare the default commit message.
+
+       [1m-S[22m[[4m<key-id>[24m], [1m--gpg-sign[22m[[1m=[4m[22m<key-id>[24m], [1m--no-gpg-sign[0m
+           GPG-sign commits. The [4m<key-id>[24m is optional and defaults to the committer identity; if specified, it must be stuck to the option without a space.  [1m--no-gpg-sign [22mis
+           useful to countermand both [1mcommit.gpgSign [22mconfiguration variable, and earlier [1m--gpg-sign[22m.
+
+       [1m--[0m
+           Do not interpret any more arguments as options.
+
+       [4m<pathspec>[24m...
+           When [4m<pathspec>[24m is given on the command line, commit the contents of the files that match the pathspec without recording the changes already added to the index.
+           The contents of these files are also staged for the next commit on top of what have been staged before.
+
+           For more details, see the [4mpathspec[24m entry in [1mgitglossary[22m(7).
+
+[1mEXAMPLES[0m
+       When recording your own work, the contents of modified files in your working tree are temporarily stored to a staging area called the "index" with [1mgit add[22m. A file can
+       be reverted back, only in the index but not in the working tree, to that of the last commit with [1mgit restore --staged [4m[22m<file>[24m, which effectively reverts [1mgit add [22mand
+       prevents the changes to this file from participating in the next commit. After building the state to be committed incrementally with these commands, [1mgit commit[0m
+       (without any pathname parameter) is used to record what has been staged so far. This is the most basic form of the command. An example:
+
+           $ edit hello.c
+           $ git rm goodbye.c
+           $ git add hello.c
+           $ git commit
+
+       Instead of staging files after each individual change, you can tell [1mgit commit [22mto notice the changes to the files whose contents are tracked in your working tree and
+       do corresponding [1mgit add [22mand [1mgit rm [22mfor you. That is, this example does the same as the earlier example if there is no other change in your working tree:
+
+           $ edit hello.c
+           $ rm goodbye.c
+           $ git commit -a
+
+       The command [1mgit commit -a [22mfirst looks at your working tree, notices that you have modified [1mhello.c [22mand removed [1mgoodbye.c[22m, and performs necessary [1mgit add [22mand [1mgit rm[0m
+       for you.
+
+       After staging changes to many files, you can alter the order the changes are recorded in, by giving pathnames to [1mgit commit[22m. When pathnames are given, the command
+       makes a commit that only records the changes made to the named paths:
+
+           $ edit hello.c hello.h
+           $ git add hello.c hello.h
+           $ edit Makefile
+           $ git commit Makefile
+
+       This makes a commit that records the modification to [1mMakefile[22m. The changes staged for [1mhello.c [22mand [1mhello.h [22mare not included in the resulting commit. However, their
+       changes are not lost — they are still staged and merely held back. After the above sequence, if you do:
+
+           $ git commit
+
+       this second commit would record the changes to [1mhello.c [22mand [1mhello.h [22mas expected.
+
+       After a merge (initiated by [1mgit merge [22mor [1mgit pull[22m) stops because of conflicts, cleanly merged paths are already staged to be committed for you, and paths that
+       conflicted are left in unmerged state. You would have to first check which paths are conflicting with [1mgit status [22mand after fixing them manually in your working tree,
+       you would stage the result as usual with [1mgit add[22m:
+
+           $ git status | grep unmerged
+           unmerged: hello.c
+           $ edit hello.c
+           $ git add hello.c
+
+       After resolving conflicts and staging the result, [1mgit ls-files -u [22mwould stop mentioning the conflicted path. When you are done, run [1mgit commit [22mto finally record the
+       merge:
+
+           $ git commit
+
+       As with the case to record your own changes, you can use [1m-a [22moption to save typing. One difference is that during a merge resolution, you cannot use [1mgit commit [22mwith
+       pathnames to alter the order the changes are committed, because the merge should be recorded as a single commit. In fact, the command refuses to run when given
+       pathnames (but see [1m-i [22moption).
+
+[1mCOMMIT INFORMATION[0m
+       Author and committer information is taken from the following environment variables, if set:
+
+       •   [1mGIT_AUTHOR_NAME[0m
+
+       •   [1mGIT_AUTHOR_EMAIL[0m
+
+       •   [1mGIT_AUTHOR_DATE[0m
+
+       •   [1mGIT_COMMITTER_NAME[0m
+
+       •   [1mGIT_COMMITTER_EMAIL[0m
+
+       •   [1mGIT_COMMITTER_DATE[0m
+
+       (nb "<", ">" and "\n"s are stripped)
+
+       The author and committer names are by convention some form of a personal name (that is, the name by which other humans refer to you), although Git does not enforce or
+       require any particular form. Arbitrary Unicode may be used, subject to the constraints listed above. This name has no effect on authentication; for that, see the
+       [1mcredential.username [22mvariable in [1mgit-config[22m(1).
+
+       In case (some of) these environment variables are not set, the information is taken from the configuration items [1muser.name [22mand [1muser.email[22m, or, if not present, the
+       environment variable [1mEMAIL[22m, or, if that is not set, system user name and the hostname used for outgoing mail (taken from [1m/etc/mailname [22mand falling back to the fully
+       qualified hostname when that file does not exist).
+
+       The [1mauthor.name [22mand [1mcommitter.name [22mand their corresponding email options override [1muser.name [22mand [1muser.email [22mif set and are overridden themselves by the environment
+       variables.
+
+       The typical usage is to set just the [1muser.name [22mand [1muser.email [22mvariables; the other options are provided for more complex use cases.
+
+[1mDATE FORMATS[0m
+       The [1mGIT_AUTHOR_DATE [22mand [1mGIT_COMMITTER_DATE [22menvironment variables support the following date formats:
+
+       Git internal format
+           It is [4m<unix-timestamp>[24m [4m<time-zone-offset>[24m, where [4m<unix-timestamp>[24m is the number of seconds since the UNIX epoch.  [4m<time-zone-offset>[24m is a positive or negative
+           offset from UTC. For example CET (which is 1 hour ahead of UTC) is [1m+0100[22m.
+
+       RFC 2822
+           The standard date format as described by RFC 2822, for example [1mThu[22m, [1m07 Apr 2005 22:13:13 +0200[22m.
+
+       ISO 8601
+           Time and date specified by the ISO 8601 standard, for example [1m2005-04-07T22:13:13[22m. The parser accepts a space instead of the [1mT [22mcharacter as well. Fractional parts
+           of a second will be ignored, for example [1m2005-04-07T22:13:13.019 [22mwill be treated as [1m2005-04-07T22:13:13[22m.
+
+               [1mNote[0m
+               In addition, the date part is accepted in the following formats: [1mYYYY.MM.DD[22m, [1mMM/DD/YYYY [22mand [1mDD.MM.YYYY[22m.
+
+       In addition to recognizing all date formats above, the [1m--date [22moption will also try to make sense of other, more human-centric date formats, such as relative dates
+       like "yesterday" or "last Friday at noon".
+
+[1mDISCUSSION[0m
+       Though not required, it’s a good idea to begin the commit message with a single short (no more than 50 characters) line summarizing the change, followed by a blank
+       line and then a more thorough description. The text up to the first blank line in a commit message is treated as the commit title, and that title is used throughout
+       Git. For example, [1mgit-format-patch[22m(1) turns a commit into email, and it uses the title on the Subject line and the rest of the commit in the body.
+
+       Git is to some extent character encoding agnostic.
+
+       •   The contents of the blob objects are uninterpreted sequences of bytes. There is no encoding translation at the core level.
+
+       •   Path names are encoded in UTF-8 normalization form C. This applies to tree objects, the index file, ref names, as well as path names in command line arguments,
+           environment variables and config files ([1m.git/config [22m(see [1mgit-config[22m(1)), [1mgitignore[22m(5), [1mgitattributes[22m(5) and [1mgitmodules[22m(5)).
+
+           Note that Git at the core level treats path names simply as sequences of non-NUL bytes, there are no path name encoding conversions (except on Mac and Windows).
+           Therefore, using non-ASCII path names will mostly work even on platforms and file systems that use legacy extended ASCII encodings. However, repositories created
+           on such systems will not work properly on UTF-8-based systems (e.g. Linux, Mac, Windows) and vice versa. Additionally, many Git-based tools simply assume path
+           names to be UTF-8 and will fail to display other encodings correctly.
+
+       •   Commit log messages are typically encoded in UTF-8, but other extended ASCII encodings are also supported. This includes ISO-8859-x, CP125x and many others, but
+           [4mnot[24m UTF-16/32, EBCDIC and CJK multi-byte encodings (GBK, Shift-JIS, Big5, EUC-x, CP9xx etc.).
+
+       Although we encourage that the commit log messages are encoded in UTF-8, both the core and Git Porcelain are designed not to force UTF-8 on projects. If all
+       participants of a particular project find it more convenient to use legacy encodings, Git does not forbid it. However, there are a few things to keep in mind.
+
+        1. [1mgit commit [22mand [1mgit commit-tree [22missue a warning if the commit log message given to it does not look like a valid UTF-8 string, unless you explicitly say your
+           project uses a legacy encoding. The way to say this is to have [1mi18n.commitEncoding [22min [1m.git/config [22mfile, like this:
+
+               [i18n]
+                       commitEncoding = ISO-8859-1
+
+           Commit objects created with the above setting record the value of [1mi18n.commitEncoding [22min their [1mencoding [22mheader. This is to help other people who look at them
+           later. Lack of this header implies that the commit log message is encoded in UTF-8.
+
+        2. [1mgit log[22m, [1mgit show[22m, [1mgit blame [22mand friends look at the [1mencoding [22mheader of a commit object, and try to re-code the log message into UTF-8 unless otherwise specified.
+           You can specify the desired output encoding with [1mi18n.logOutputEncoding [22min [1m.git/config [22mfile, like this:
+
+               [i18n]
+                       logOutputEncoding = ISO-8859-1
+
+           If you do not have this configuration variable, the value of [1mi18n.commitEncoding [22mis used instead.
+
+       Note that we deliberately chose not to re-code the commit log message when a commit is made to force UTF-8 at the commit object level, because re-coding to UTF-8 is
+       not necessarily a reversible operation.
+
+[1mENVIRONMENT AND CONFIGURATION VARIABLES[0m
+       The editor used to edit the commit log message will be chosen from the [1mGIT_EDITOR [22menvironment variable, the [1mcore.editor [22mconfiguration variable, the [1mVISUAL [22menvironment
+       variable, or the [1mEDITOR [22menvironment variable (in that order). See [1mgit-var[22m(1) for details.
+
+       Everything above this line in this section isn’t included from the [1mgit-config[22m(1) documentation. The content that follows is the same as what’s found there:
+
+       [1mcommit.cleanup[0m
+           This setting overrides the default of the [1m--cleanup [22moption in [1mgit commit[22m. Changing the default can be useful when you always want to keep lines that begin with
+           the comment character ([1mcore.commentChar[22m, default #) in your log message, in which case you would do [1mgit config commit.cleanup whitespace [22m(note that you will have
+           to remove the help lines that begin with the comment character in the commit log template yourself, if you do this).
+
+       [1mcommit.gpgSign[0m
+           A boolean to specify whether all commits should be GPG signed. Use of this option when doing operations such as rebase can result in a large number of commits
+           being signed. It may be convenient to use an agent to avoid typing your GPG passphrase several times.
+
+       [1mcommit.status[0m
+           A boolean to enable/disable inclusion of status information in the commit message template when using an editor to prepare the commit message. Defaults to [1mtrue[22m.
+
+       [1mcommit.template[0m
+           Specify the pathname of a file to use as the template for new commit messages.
+
+       [1mcommit.verbose[0m
+           A boolean or int to specify the level of verbosity with [1mgit commit[22m.
+
+[1mHOOKS[0m
+       This command can run [1mcommit-msg[22m, [1mprepare-commit-msg[22m, [1mpre-commit[22m, [1mpost-commit [22mand [1mpost-rewrite [22mhooks. See [1mgithooks[22m(5) for more information.
+
+[1mFILES[0m
+       [1m$GIT_DIR/COMMIT_EDITMSG[0m
+           This file contains the commit message of a commit in progress. If [1mgit commit [22mexits due to an error before creating a commit, any commit message that has been
+           provided by the user (e.g., in an editor session) will be available in this file, but will be overwritten by the next invocation of [1mgit commit[22m.
+
+[1mSEE ALSO[0m
+       [1mgit-add[22m(1), [1mgit-rm[22m(1), [1mgit-mv[22m(1), [1mgit-merge[22m(1), [1mgit-commit-tree[22m(1)
+
+[1mGIT[0m
+       Part of the [1mgit[22m(1) suite
+
+Git 2.52.0                                                                        2025-11-17                                                                    [4mGIT-COMMIT[24m(1)
