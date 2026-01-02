@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+"""
+Neiler-OS Live System Monitor
+Real-time system monitoring dashboard
+"""
+
+import sys
+import time
+import os
+
+def clear_screen():
+    os.system('clear')
+
+def get_cpu_usage():
+    """Get current CPU usage"""
+    try:
+        with open('/proc/stat', 'r') as f:
+            line = f.readline()
+            values = [int(x) for x in line.split()[1:]]
+            total = sum(values)
+            idle = values[3]
+            return ((total - idle) / total * 100) if total > 0 else 0
+    except:
+        return 0
+
+def get_memory_usage():
+    """Get memory usage percentage"""
+    try:
+        with open('/proc/meminfo', 'r') as f:
+            lines = f.readlines()
+            mem_total = 0
+            mem_available = 0
+            for line in lines:
+                if 'MemTotal' in line:
+                    mem_total = int(line.split()[1])
+                elif 'MemAvailable' in line:
+                    mem_available = int(line.split()[1])
+
+            return ((mem_total - mem_available) / mem_total * 100) if mem_total > 0 else 0
+    except:
+        return 0
+
+def draw_bar(value, width=40):
+    """Draw a text progress bar"""
+    filled = int(value / 100 * width)
+    bar = '█' * filled + '░' * (width - filled)
+    return bar
+
+def main():
+    print("\nNeiler-OS Live Monitor - Press Ctrl+C to exit\n")
+    time.sleep(2)
+
+    try:
+        while True:
+            clear_screen()
+
+            print("="*70)
+            print("  NEILER-OS LIVE SYSTEM MONITOR")
+            print("="*70)
+            print(f"\n  Time: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+            print()
+
+            # CPU Usage
+            cpu = get_cpu_usage()
+            print(f"  CPU Usage:  [{draw_bar(cpu, 40)}] {cpu:.1f}%")
+
+            # Memory Usage
+            mem = get_memory_usage()
+            print(f"  Memory:     [{draw_bar(mem, 40)}] {mem:.1f}%")
+
+            print()
+            print("  Neiler Stats:")
+            print(f"    CPU Speed:  {os.getenv('NEILER_CPU_SPEED', '8000000')} Hz")
+            print(f"    RAM Size:   {int(os.getenv('NEILER_RAM_SIZE', '67108864')) // (1024*1024)} MB")
+            print(f"    GPU Mode:   {os.getenv('NEILER_GPU_MODE', '640x480')}")
+
+            print()
+            print("="*70)
+            print("  Press Ctrl+C to exit")
+            print("="*70)
+
+            time.sleep(2)
+
+    except KeyboardInterrupt:
+        print("\n\nMonitor stopped.\n")
+
+if __name__ == "__main__":
+    main()

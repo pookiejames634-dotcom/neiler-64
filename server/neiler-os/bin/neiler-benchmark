@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""
+Neiler-OS Benchmark Suite
+Run performance benchmarks on the Neiler-64 system
+"""
+
+import sys
+import os
+
+# Add library path
+sys.path.insert(0, '/opt/neiler/lib')
+sys.path.insert(0, '/opt/neiler/workload-sim')
+
+print("\n" + "="*60)
+print("  NEILER-64 BENCHMARK SUITE")
+print("="*60)
+print("\nStarting benchmark tests...\n")
+
+try:
+    from simulator import WorkloadSimulator
+
+    simulator = WorkloadSimulator()
+    simulator.run_benchmark_suite()
+
+except ImportError as e:
+    print(f"Error: Could not import workload simulator")
+    print(f"Details: {e}")
+    print("\nRunning in demo mode...\n")
+
+    # Demo mode
+    import time
+    import random
+
+    tests = [
+        ("Fibonacci(20)", "Computing Fibonacci sequence"),
+        ("Prime Check", "Checking primality of 97"),
+        ("Memory Test", "Testing RAM read/write"),
+        ("Graphics Demo", "Rendering 640x480 pixels"),
+    ]
+
+    print("="*60)
+    for name, desc in tests:
+        print(f"\n{name}:")
+        print(f"  {desc}...")
+        time.sleep(1)
+
+        instructions = random.randint(5000, 50000)
+        exec_time = random.uniform(0.01, 0.5)
+        ips = instructions / exec_time
+
+        print(f"  Instructions:   {instructions:,}")
+        print(f"  Time:          {exec_time:.4f}s")
+        print(f"  Performance:   {ips:,.0f} IPS")
+
+    print("\n" + "="*60)
+    print("Benchmark complete!")
+    print("="*60 + "\n")

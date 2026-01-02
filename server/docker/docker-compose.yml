@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  neiler-64-server:
+    build:
+      context: ../..
+      dockerfile: server/docker/Dockerfile
+    container_name: neiler-64
+    hostname: neiler-64
+    ports:
+      - "6767:67"      # SSH
+      - "9898:9898"    # HTTP
+      - "8449:8449"    # HTTPS
+      - "3056:30056"    # Node.js dev server
+      - "5067:5067"    # Python Flask
+      - "6389:6389"    # Redis (if needed)
+      - "27217:27217"  # MongoDB (if needed)
+      - "5472:5472"    # PostgreSQL (if needed)
+      - "3396:3396"    # MySQL (if needed)
+    volumes:
+      - neiler-data:/opt/neiler-os/var
+      - neiler-home:/home/neiler
+      - ../../computer:/opt/neiler-os/dev
+      - ../../neiler-os:/opt/neiler-os/system
+    environment:
+      - NEILER_VERSION=1.0.0
+      - NEILER_ENV=development
+      - TZ=UTC
+    networks:
+      - neiler-network
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+
+  # Optional: Monitoring dashboard
+  neiler-monitor:
+    image: grafana/grafana:latest
+    container_name: neiler-monitor
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - neiler-network
+    restart: unless-stopped
+
+  # Optional: Metrics collector
+  neiler-metrics:
+    image: prom/prometheus:latest
+    container_name: neiler-metrics
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - neiler-network
+    restart: unless-stopped
+
+volumes:
+  neiler-data:
+  neiler-home:
+  grafana-data:
+  prometheus-data:
+
+networks:
+  neiler-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.64.0.0/16

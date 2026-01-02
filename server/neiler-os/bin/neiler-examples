@@ -1,0 +1,32 @@
+#!/bin/bash
+# List Neiler example programs
+
+echo ""
+echo "=========================================="
+echo "  NEILER-64 EXAMPLE PROGRAMS"
+echo "=========================================="
+echo ""
+
+if [ -d "/neiler-dev/examples" ]; then
+    echo "Available examples in /neiler-dev/examples:"
+    echo ""
+    ls -1 /neiler-dev/examples/*.asm 2>/dev/null | while read file; do
+        basename "$file"
+    done
+    echo ""
+    echo "To assemble and run:"
+    echo "  cd /neiler-dev/examples"
+    echo "  python3 /opt/neiler/bin/asm.py hello.asm -o hello.bin"
+    echo "  python3 /opt/neiler/lib/neiler8.py  # Then load program"
+else
+    echo "Example programs:"
+    echo ""
+    echo "  hello.asm      - Print Hello World"
+    echo "  fibonacci.asm  - Calculate Fibonacci"
+    echo "  counter.asm    - Count from 0-255"
+    echo ""
+    echo "Examples not yet mounted in container."
+fi
+echo ""
+echo "=========================================="
+echo ""

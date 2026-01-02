@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  neiler-os:
+    build:
+      context: ..
+      dockerfile: server/docker/Dockerfile
+    container_name: neiler-os-server
+    hostname: neiler-os
+    ports:
+      - "6767:22"      # SSH
+      - "9898:9898"    # Web dashboard
+      - "8089:8089"    # Workload monitor
+    volumes:
+      - neiler-home:/home/dev
+      - neiler-opt:/opt/neiler
+      - neiler-logs:/var/log/neiler
+      - ../computer:/neiler-dev:ro  # Mount development files read-only
+    environment:
+      - NEILER_CPU_SPEED=8000000    # 8MHz
+      - NEILER_RAM_SIZE=67108864    # 64MB
+      - NEILER_GPU_MODE=640x480
+      - NEILER_DEBUG=0
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+volumes:
+  neiler-home:
+    driver: local
+  neiler-opt:
+    driver: local
+  neiler-logs:
+    driver: local

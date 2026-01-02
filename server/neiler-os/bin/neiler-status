@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""
+Neiler-OS System Status
+Shows current system information and statistics
+"""
+
+import os
+import sys
+import time
+import subprocess
+from datetime import datetime
+
+def get_uptime():
+    """Get system uptime"""
+    try:
+        with open('/proc/uptime', 'r') as f:
+            uptime_seconds = float(f.readline().split()[0])
+            hours = int(uptime_seconds // 3600)
+            minutes = int((uptime_seconds % 3600) // 60)
+            return f"{hours}h {minutes}m"
+    except:
+        return "Unknown"
+
+def get_cpu_info():
+    """Get CPU information"""
+    try:
+        with open('/proc/cpuinfo', 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                if 'model name' in line:
+                    return line.split(':')[1].strip()
+    except:
+        pass
+    return "Neiler-8 Emulated CPU"
+
+def get_memory_info():
+    """Get memory usage"""
+    try:
+        with open('/proc/meminfo', 'r') as f:
+            lines = f.readlines()
+            mem_total = 0
+            mem_available = 0
+            for line in lines:
+                if 'MemTotal' in line:
+                    mem_total = int(line.split()[1])
+                elif 'MemAvailable' in line:
+                    mem_available = int(line.split()[1])
+
+            mem_used = mem_total - mem_available
+            mem_percent = (mem_used / mem_total * 100) if mem_total > 0 else 0
+
+            return {
+                'total': mem_total // 1024,  # MB
+                'used': mem_used // 1024,    # MB
+                'percent': mem_percent
+            }
+    except:
+        return {'total': 64, 'used': 32, 'percent': 50}
+
+def get_disk_info():
+    """Get disk usage"""
+    try:
+        result = subprocess.run(['df', '-h', '/'], capture_output=True, text=True)
+        lines = result.stdout.strip().split('\n')
+        if len(lines) > 1:
+            parts = lines[1].split()
+            return {
+                'total': parts[1],
+                'used': parts[2],
+                'percent': parts[4]
+            }
+    except:
+        pass
+    return {'total': '10G', 'used': '2G', 'percent': '20%'}
+
+def get_neiler_stats():
+    """Get Neiler-specific statistics"""
+    stats = {
+        'cpu_speed': os.getenv('NEILER_CPU_SPEED', '8000000'),
+        'ram_size': os.getenv('NEILER_RAM_SIZE', '67108864'),
+        'gpu_mode': os.getenv('NEILER_GPU_MODE', '640x480'),
+    }
+
+    # Format nicely
+    cpu_mhz = int(stats['cpu_speed']) / 1_000_000
+    ram_mb = int(stats['ram_size']) / (1024 * 1024)
+
+    return {
+        'cpu_speed': f"{cpu_mhz} MHz",
+        'ram_size': f"{int(ram_mb)} MB",
+        'gpu_mode': stats['gpu_mode']
+    }
+
+def main():
+    print("\n" + "="*60)
+    print("  NEILER-OS SYSTEM STATUS")
+    print("="*60)
+
+    # System Information
+    print("\n📊 SYSTEM INFORMATION")
+    print(f"  Hostname:       {os.uname().nodename}")
+    print(f"  OS:             Neiler-OS v{os.getenv('NEILER_OS_VERSION', '1.0.0')}")
+    print(f"  Kernel:         {os.uname().release}")
+    print(f"  Uptime:         {get_uptime()}")
+    print(f"  Current Time:   {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+    # Neiler Hardware
+    print("\n⚙️  NEILER HARDWARE")
+    neiler_stats = get_neiler_stats()
+    print(f"  CPU Speed:      {neiler_stats['cpu_speed']}")
+    print(f"  RAM Size:       {neiler_stats['ram_size']}")
+    print(f"  GPU Mode:       {neiler_stats['gpu_mode']}")
+    print(f"  CPU Type:       Neiler-8 (8-bit)")
+
+    # Host Resources
+    print("\n💾 HOST RESOURCES")
+    mem = get_memory_info()
+    disk = get_disk_info()
+    print(f"  Memory:         {mem['used']} MB / {mem['total']} MB ({mem['percent']:.1f}%)")
+    print(f"  Disk:           {disk['used']} / {disk['total']} ({disk['percent']})")
+
+    # Services
+    print("\n🔧 SERVICES")
+    services = [
+        ('SSH Server', 'sshd'),
+        ('Workload Simulator', 'simulator.py'),
+    ]
+
+    for name, process in services:
+        try:
+            result = subprocess.run(['pgrep', '-f', process], capture_output=True)
+            status = "✓ Running" if result.returncode == 0 else "✗ Stopped"
+        except:
+            status = "? Unknown"
+        print(f"  {name:20s} {status}")
+
+    # Network
+    print("\n🌐 NETWORK")
+    try:
+        result = subprocess.run(['hostname', '-I'], capture_output=True, text=True)
+        ips = result.stdout.strip()
+        print(f"  IP Addresses:   {ips if ips else 'N/A'}")
+    except:
+        print(f"  IP Addresses:   N/A")
+
+    print(f"  SSH Port:       6767 (external)")
+    print(f"  Web Dashboard:  9898")
+
+    # Workload Statistics
+    print("\n📈 WORKLOAD STATISTICS")
+    try:
+        import json
+        with open('/var/log/neiler/benchmark_results.json', 'r') as f:
+            data = json.load(f)
+            workloads = data.get('workloads', [])
+            if workloads:
+                print(f"  Total Runs:     {len(workloads)}")
+                avg_ips = sum(w.get('avg_ips', 0) for w in workloads) / len(workloads)
+                print(f"  Avg Performance: {avg_ips:,.0f} IPS")
+            else:
+                print(f"  No benchmark data yet")
+    except:
+        print(f"  No benchmark data yet")
+
+    print("\n" + "="*60)
+    print("  Use 'neiler-benchmark' to run performance tests")
+    print("  Use 'neiler-monitor' for live system monitoring")
+    print("="*60 + "\n")
+
+if __name__ == "__main__":
+    main()

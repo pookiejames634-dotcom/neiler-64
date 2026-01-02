@@ -1,0 +1,42 @@
+Part Number,DigiKey Part Number,Manufacturer,Description,Quantity,Unit Price (USD),Total Price (USD),Package,Datasheet URL
+SN74LS181N,296-1634-5-ND,Texas Instruments,4-bit ALU,2,$3.45,$6.90,DIP-24,https://www.ti.com/lit/ds/symlink/sn74ls181.pdf
+SN74LS377N,296-14835-5-ND,Texas Instruments,Octal D Flip-Flop with Enable,6,$1.89,$11.34,DIP-20,https://www.ti.com/lit/ds/symlink/sn74ls377.pdf
+AS6C4008-55PCN,1450-1037-ND,Alliance Memory,512KB SRAM 55ns,1,$8.95,$8.95,DIP-32,https://www.alliancememory.com/wp-content/uploads/pdf/sram/fa/AS6C4008.pdf
+AT28C256-15PU,AT28C256-15PU-ND,Microchip,32KB EEPROM,1,$4.95,$4.95,DIP-28,https://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf
+SN74LS245N,296-1655-5-ND,Texas Instruments,Octal Bus Transceiver,3,$0.89,$2.67,DIP-20,https://www.ti.com/lit/ds/symlink/sn74ls245.pdf
+SN74LS373N,296-1656-5-ND,Texas Instruments,Octal D-Type Latch,2,$0.95,$1.90,DIP-20,https://www.ti.com/lit/ds/symlink/sn74ls373.pdf
+ECS-10-18-1X,XC1715-ND,ECS Inc,1.000 MHz Crystal Oscillator,1,$0.95,$0.95,DIP-4,https://ecsxtal.com/store/pdf/ecs-10.pdf
+SN74LS04N,296-1629-5-ND,Texas Instruments,Hex Inverter,1,$0.65,$0.65,DIP-14,https://www.ti.com/lit/ds/symlink/sn74ls04.pdf
+SN74LS138N,296-1639-5-ND,Texas Instruments,3-to-8 Line Decoder,2,$0.79,$1.58,DIP-16,https://www.ti.com/lit/ds/symlink/sn74ls138.pdf
+SN74LS32N,296-1658-5-ND,Texas Instruments,Quad 2-Input OR Gate,1,$0.59,$0.59,DIP-14,https://www.ti.com/lit/ds/symlink/sn74ls32.pdf
+SN74LS08N,296-1633-5-ND,Texas Instruments,Quad 2-Input AND Gate,1,$0.59,$0.59,DIP-14,https://www.ti.com/lit/ds/symlink/sn74ls08.pdf
+LM7805CT,LM7805CT-ND,Texas Instruments,5V 1.5A Voltage Regulator,1,$0.79,$0.79,TO-220,https://www.ti.com/lit/ds/symlink/lm340.pdf
+1N4001,1N4001FSCT-ND,Fairchild,1A 50V Rectifier Diode,4,$0.15,$0.60,DO-41,https://www.onsemi.com/pdf/datasheet/1n4001-d.pdf
+C320C104K5R5TA,399-4151-ND,Kemet,100nF Ceramic Capacitor,25,$0.15,$3.75,Radial,https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf
+ECA-1HM100,P5156-ND,Panasonic,10uF 50V Electrolytic Capacitor,10,$0.25,$2.50,Radial,https://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1218.pdf
+COM-09590,1568-1490-ND,SparkFun,LED - Red 5mm,1,$0.25,$0.25,Through-Hole,N/A
+COM-09592,1568-1491-ND,SparkFun,LED - Green 5mm,1,$0.25,$0.25,Through-Hole,N/A
+COM-09594,1568-1492-ND,SparkFun,LED - Blue 5mm,1,$0.25,$0.25,Through-Hole,N/A
+COM-09856,1568-1493-ND,SparkFun,LED - Yellow 5mm,1,$0.25,$0.25,Through-Hole,N/A
+CFR-25JB-52-330R,330QBK-ND,Yageo,330Ω 1/4W Resistor,4,$0.10,$0.40,Axial,https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-CFR_datasheet_2017v3.pdf
+16550DN,16550DN-ND,Exar,UART with FIFO,1,$3.95,$3.95,DIP-40,https://www.exar.com/ds/st16c550.pdf
+A-DF-09-A/KG-T2S,AE10983-ND,Assmann WSW,DB9 Female Connector,1,$1.25,$1.25,Through-Hole,N/A
+609-3270-ND,609-3270-ND,Amphenol,DB25 Male Connector,1,$1.45,$1.45,Through-Hole,N/A
+S2011EC-36-ND,S2011EC-36-ND,Sullins,40-pin Header Socket,2,$2.50,$5.00,Through-Hole,N/A
+450-1650-ND,450-1650-ND,Keystone,IC Socket 24-pin,2,$0.85,$1.70,DIP,N/A
+450-1660-ND,450-1660-ND,Keystone,IC Socket 20-pin,11,$0.75,$8.25,DIP,N/A
+450-1665-ND,450-1665-ND,Keystone,IC Socket 16-pin,2,$0.65,$1.30,DIP,N/A
+450-1670-ND,450-1670-ND,Keystone,IC Socket 14-pin,3,$0.55,$1.65,DIP,N/A
+450-1680-ND,450-1680-ND,Keystone,IC Socket 32-pin Wide,1,$1.95,$1.95,DIP,N/A
+450-1685-ND,450-1685-ND,Keystone,IC Socket 28-pin Wide,1,$1.75,$1.75,DIP,N/A
+450-1690-ND,450-1690-ND,Keystone,IC Socket 40-pin Wide,1,$2.25,$2.25,DIP,N/A
+HS340-ND,HS340-ND,Aavid Thermalloy,TO-220 Heatsink,1,$1.95,$1.95,TO-220,N/A
+EG1218-ND,EG1218-ND,E-Switch,SPST Slide Switch,2,$0.75,$1.50,Through-Hole,N/A
+CP-102A-ND,CP-102A-ND,CUI Devices,Power Jack 2.1mm,1,$0.95,$0.95,Through-Hole,N/A
+WM4200-ND,WM4200-ND,Molex,Wire 22AWG Red 25ft,1,$4.95,$4.95,Spool,N/A
+WM4202-ND,WM4202-ND,Molex,Wire 22AWG Black 25ft,1,$4.95,$4.95,Spool,N/A
+,,,,,,,,
+,,,,SUBTOTAL,,$89.46,,
+,,,,SHIPPING,,$12.00,,
+,,,,TAX (8%),,$8.12,,
+,,,,TOTAL,,$109.58,,

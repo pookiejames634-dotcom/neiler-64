@@ -1,0 +1,32 @@
+Part Number,DigiKey Part Number,Manufacturer,Description,Quantity,Unit Price (USD),Total Price (USD),Package,Notes
+XC95288XL-10TQG144C,122-1528-ND,Xilinx,CPLD 288 Macrocells,1,$24.95,$24.95,TQFP-144,Main GPU Logic
+IS61LV25616AL-10TLI,706-1408-ND,ISSI,256KB SRAM 10ns,4,$5.95,$23.80,TSOP-44,VRAM
+CY7C1049G30-10ZSXI,428-1219-ND,Cypress,512KB SRAM 10ns,2,$8.45,$16.90,SOJ-32,Sprite RAM
+ADV7123KSTZ50,ADV7123KSTZ50-ND,Analog Devices,Triple 8-bit Video DAC,1,$12.95,$12.95,TQFP-48,RGB Output
+SN74LVC245APWR,296-8503-1-ND,Texas Instruments,Octal Bus Transceiver 3.3V,4,$0.65,$2.60,TSSOP-20,Bus Interface
+SN74LVC573APWR,296-8512-1-ND,Texas Instruments,Octal D-Type Latch 3.3V,3,$0.75,$2.25,TSSOP-20,Address Latches
+LM1881N,LM1881N-ND,Texas Instruments,Video Sync Separator,1,$2.95,$2.95,DIP-8,Sync Generation
+NE555P,296-1411-5-ND,Texas Instruments,Timer IC,2,$0.45,$0.90,DIP-8,Timing Circuits
+ECS-250-20-4X,XC1774-ND,ECS Inc,25.175 MHz Crystal,1,$2.95,$2.95,HC-49,VGA Pixel Clock
+ECS-270-20-4X,XC1778-ND,ECS Inc,27.000 MHz Crystal,1,$2.95,$2.95,HC-49,Alt Pixel Clock
+ADP3303ARZ-3.3,ADP3303ARZ-3.3-ND,Analog Devices,3.3V LDO Regulator,2,$1.95,$3.90,SOIC-8,3.3V Power
+LM317T,LM317TFS-ND,ON Semiconductor,Adjustable Regulator,1,$0.85,$0.85,TO-220,Voltage Ref
+THS7374IPWR,296-23091-1-ND,Texas Instruments,4-Channel Video Amp,1,$3.45,$3.45,TSSOP-14,Video Buffer
+HD15-9934-ND,HD15-9934-ND,Assmann WSW,VGA Connector Female,1,$1.85,$1.85,Through-Hole,VGA Output
+RCA-J4YF-ND,RCA-J4YF-ND,Switchcraft,RCA Jack Yellow,3,$1.25,$3.75,Through-Hole,Composite Video
+S-Video-4P-ND,CP-2260-ND,CUI Devices,S-Video Jack 4-pin,1,$1.95,$1.95,Through-Hole,S-Video Output
+GRM188R71C104KA01D,490-1532-1-ND,Murata,100nF 16V X7R 0603,40,$0.10,$4.00,0603 SMD,Decoupling
+GRM31CR61A226KE19L,490-10511-1-ND,Murata,22uF 10V X5R 1206,8,$0.35,$2.80,1206 SMD,Bulk Caps
+TAJB107K010RNJ,478-5298-1-ND,AVX,100uF 10V Tant,4,$0.95,$3.80,SMD,Power Supply
+RC0603FR-0775RL,311-75HRCT-ND,Yageo,75Ω 1% 0603,3,$0.10,$0.30,0603 SMD,Video Term
+ERJ-3EKF1001V,P1.0KHCT-ND,Panasonic,1kΩ 1% 0603,20,$0.10,$2.00,0603 SMD,General Purpose
+ERJ-3EKF4701V,P4.7KHCT-ND,Panasonic,4.7kΩ 1% 0603,10,$0.10,$1.00,0603 SMD,Pull-ups
+MMBT3904,MMBT3904CT-ND,Fairchild,NPN Transistor,4,$0.15,$0.60,SOT-23,Level Shift
+BAT54S,BAT54SCT-ND,ON Semiconductor,Schottky Diode Array,2,$0.25,$0.50,SOT-23,Protection
+,,,,,,,,
+,,,,SUBTOTAL,,$124.90,,
+,,,,PCB (4-layer),,$45.00,,PCB manufacturing
+,,,,Assembly,,$0.00,,DIY
+,,,,SHIPPING,,$15.00,,
+,,,,TAX (8%),,$14.79,,
+,,,,TOTAL,,$199.69,,
